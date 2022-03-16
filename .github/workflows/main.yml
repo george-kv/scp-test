@@ -26,7 +26,7 @@ jobs:
         with:
           host: 13.38.4.127
           username: ec2-user
-          key: ${{ secrets.key }}
+          passphrase: ${{ secrets.key }}
           port: 22
           source: "deploy.tar"
           target: "destination/folder"
