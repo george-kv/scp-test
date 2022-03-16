@@ -15,15 +15,20 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-      - name: SCP Files
-        uses: appleboy/scp-action@v0.0.1
+      - name: Run a multi-line script
+        run: |
+          mkdir ../build
+          cp -TR . ../build
+          tar -cvf deploy.tar ../build/
+
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@master
         with:
-         host: 13.38.4.127
-         username: ec2-user
-         key: ${{ secrets.key }}
-         port: 22
-         source: "test.env"
-         target: "test"
-        
+          host: 13.38.4.127
+          username: ec2-user
+          key: ${{ secrets.key }}
+          port: 22
+          source: "deploy.tar"
+          target: "destination/folder"
           
  
