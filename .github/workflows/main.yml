@@ -1,0 +1,29 @@
+name: SCP Files ci-cd 
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+ build-and-push:
+    runs-on: ubuntu-latest
+    name: Zip,Copy to S3 and Update Lambda
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: SCP Files
+        uses: appleboy/scp-action@v0.0.1
+        with:
+         host: ec2-13-38-4-127.eu-west-3.compute.amazonaws.com
+         username: ec2-user
+         key: ${{ secrets.key }}
+         port: 22
+         source: "test.env"
+         target: "test"
+        
+          
+ 
